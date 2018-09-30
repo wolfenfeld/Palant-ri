@@ -1,6 +1,9 @@
 from Palantir.BasePlotHandlers import PlotHandler
 
+import networkx as nx
+
 import plotly.graph_objs as go
+from plotly.offline import iplot
 
 
 class GraphPlotHandler(PlotHandler):
@@ -50,15 +53,21 @@ class GraphPlotHandler(PlotHandler):
                 colorscale='YlGnBu',
                 reversescale=True,
                 color=[],
-                size=0,
+                size=17,
                 line=dict(width=2)))
 
         for node, node_data in self.graph.nodes(data=True):
             x, y = pos[node]
-            text = node_data['label'].replace('\\n', '<br>')
 
             node_trace['x'] += tuple([x])
             node_trace['y'] += tuple([y])
-            node_trace['text'] += tuple([text])
 
         return node_trace
+
+    def plot_graph(self, pos=None):
+
+        if not pos:
+            pos = nx.spring_layout(self._graph)
+
+        data = [self._get_edge_trace(pos), self._get_node_trace(pos)]
+        iplot(go.Figure(data=data))

@@ -11,8 +11,7 @@ from plotly.offline import iplot
 
 
 class ClassifierPlotHandler(PlotHandler):
-    """
-    """
+    """ Handles all the plots related of the chosen classifier. """
 
     def __init__(self, data_set_df, trained_classifier, **params):
         self._data_set_df = data_set_df
@@ -137,6 +136,7 @@ class ClassifierPlotHandler(PlotHandler):
 
 
 class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
+    """ Handles all the plots related of the chosen classifier on 2D. """
 
     def __init__(self, data_set_df, trained_classifier, step_size=0.01, **params):
         self.step_size = step_size
@@ -180,6 +180,7 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
 
 class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
+    """ Handles all the plots related of the chosen classifier on 3D. """
 
     def __init__(self, data_set_df, trained_classifier, **params):
         assert {'x1', 'x2', 'x3', 'y'}.issubset(data_set_df.columns),\
