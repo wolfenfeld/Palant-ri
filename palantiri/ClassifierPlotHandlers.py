@@ -1,4 +1,4 @@
-from palantiri import PlotHandler
+from palantiri.BasePlotHandlers import PlotHandler
 
 import numpy as np
 

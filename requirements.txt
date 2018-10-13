@@ -1,3 +1,6 @@
+plotly
+scikit-learn
+numpy
 # Dev/Deployment
 sphinx
 sphinx_rtd_theme
