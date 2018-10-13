@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Regressors
+layout: blog
+title: Regressors Visualisations
 categories: [get_started] 
 ---
 # Regressors
