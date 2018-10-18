@@ -22,8 +22,8 @@ setup(
     version=__version__,
     description='Out of the box visualisation tools',
     long_description=long_description,
-    url='https://github.com/wolfenfeld/Palantiri',
-    download_url='https://github.com/wolfenfeld/Palantiri/tarball/' + __version__,
+    url='https://github.com/wolfenfeld/palantiri',
+    download_url='https://github.com/wolfenfeld/palantiri/tarball/' + __version__,
     license='BSD',
     classifiers=[
       'Development Status :: 3 - Alpha',
