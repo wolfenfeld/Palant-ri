@@ -36,6 +36,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.doctest',
               'sphinx.ext.coverage',
               'sphinx.ext.napoleon',
+              'sphinx.ext.githubpages',
               'sphinx.ext.mathjax']
 
 napoleon_google_docstring = False

@@ -1,4 +1,4 @@
-    palantiri
+palantiri
 =========
 
 .. toctree::

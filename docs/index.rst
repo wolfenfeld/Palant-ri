@@ -8,7 +8,10 @@ Welcome to Palantíri's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contents
+
+   readme
+   source/modules
 
 
 

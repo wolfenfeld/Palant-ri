@@ -5,7 +5,6 @@
     <img src="https://i.imgur.com/CX6aszO.png" alt="alternate text">
  </p>
 
-
 In Quenya (an Elvish tangue), Palantíri means "far-seeing".
 
 version number: 0.0.1
@@ -28,4 +27,3 @@ Or clone the repo:
 
     $ git clone https://github.com/wolfenfeld/Palantiri.git
     $ python setup.py install
-    
