@@ -13,17 +13,34 @@ from plotly.offline import iplot
 class ClassifierPlotHandler(PlotHandler):
     """ Handles all the plots related of the chosen classifier. """
 
-    def __init__(self, data_set_df, trained_classifier, **params):
-        self._data_set_df = data_set_df
+    def __init__(self, dataset, trained_classifier, **params):
+        """
+        Initialization function
+        :param dataset: the dataset in a dict format with the following keys:
+                        'data' - numpy array with all the data points.
+                        'target' - the label of the corresponding data point.
+                        'target_names' - the label name.
+
+        :param trained_classifier: sklearn classifier (trained / fitted).
+                                   In order to plot the ROC plot - the classifier should have the predict_proba ability.
+        :param params: other params
+        """
+
+        self._dataset = dataset
         self._trained_classifier = trained_classifier
 
+        self._n_classes = len(set(dataset['target']))
+
+        if hasattr(self._dataset, 'target_names'):
+            self._class_names = self._dataset['target_names']
+        else:
+            self._class_names = ['Class {0}'.format(i) for i in range(self.n_classes)]
+
         # Score of the predicted target store.
-        self._predicted_target_score = self._trained_classifier.predict_proba(self._data_set_df.drop('y', axis=1))
-
-        # The target value.
-        self._target = self._data_set_df['y']
-
-        self._n_classes = data_set_df['y'].nunique()
+        if hasattr(self._trained_classifier, 'predict_proba'):
+            self._predicted_target_score = self._trained_classifier.predict_proba(self._dataset['data'])
+        else:
+            self._predicted_target_score = None
 
         self._confusion_matrix = None
 
@@ -33,45 +50,84 @@ class ClassifierPlotHandler(PlotHandler):
 
         super(ClassifierPlotHandler, self).__init__(**params)
 
+    @classmethod
+    def from_pandas_dataframe(cls, dataframe, trained_classifier, **params):
+        """
+        Constructing the handler from a pandas dataframe.
+        :param dataframe: the dataframe form which the handler is bonstructed.
+        :param trained_classifier: sklearn classifier (traind / fitted).
+        :param params: other params.
+        :return: returns the classifier plot handler object.
+        """
+
+        assert 'target' in dataframe.columns.values, 'target values not in dataframe'
+
+        dataset = dict()
+        dataset['data'] = dataframe.drop('target', axis=1).values
+        dataset['target'] = dataframe['target'].values
+        dataset['feature_names'] = dataframe.drop('target', axis=1).columns.values
+        return cls(dataset, trained_classifier, **params)
+
     @property
     def trained_classifier(self):
+        """
+        The trained classifier .
+        :return: The classifier in the sklearn format.
+        """
         return self._trained_classifier
 
     @property
-    def data_set_df(self):
-        return self._data_set_df
+    def dataset(self):
+        """
+        The dataset
+        :return: The dataset as a dictionary
+        """
+        return self._dataset
 
-    @data_set_df.setter
-    def data_set_df(self, df):
-        self._data_set_df = df
+    @dataset.setter
+    def dataset(self, dataset):
+        """
+        The dataset setter.
+        :param dataset: the new dataset
+        """
+        self._dataset = dataset
 
     @property
     def predicted_target_score(self):
+        """
+        The predicted score - available if classifier has the predict_proba functionality.
+        :return: The predicted score.
+        """
         return self._predicted_target_score
 
     @property
-    def target(self):
-        return self._target
-
-    @property
     def confusion_matrix(self):
+        """
+        The confusion matrix.
+        :return: The confusion matrix as a numpy array.
+        """
         return self._confusion_matrix
 
     @property
     def n_classes(self):
+        """
+        The number of classes.
+        :return:  An int representing the number of classes.
+        """
         return self._n_classes
 
     def plot_confusion_matrix(self,
-                              class_names=None,
                               normalize=False,
                               colorscale='Viridis'):
+        """
+        Plots the confusion matrix and saves the figure in confusion_matrix_figure.
+        :param normalize: if True the confusion matrix is normalized.
+        :param colorscale: the color scale of the plot.
+        """
 
-        prediction = self.trained_classifier.predict(self.data_set_df.drop('y', axis=1))
+        prediction = self.trained_classifier.predict(self.dataset['data'])
 
-        self._confusion_matrix = confusion_matrix(self._target, prediction)
-
-        if not class_names:
-            class_names = ['Class {0}'.format(i) for i in range(self.n_classes)]
+        self._confusion_matrix = confusion_matrix(self._dataset['target'], prediction)
 
         if normalize:
             cm = self._confusion_matrix.astype('float') / self._confusion_matrix.sum(axis=1)[:, np.newaxis]
@@ -79,8 +135,8 @@ class ClassifierPlotHandler(PlotHandler):
             cm = self._confusion_matrix
 
         cm = np.flipud(cm)
-        x = class_names
-        y = list(reversed(class_names))
+        x = list(self._class_names)
+        y = list(reversed(self._class_names))
 
         self.confusion_matrix_figure = ff.create_annotated_heatmap(z=cm, x=x, y=y, colorscale=colorscale)
         self.confusion_matrix_figure['layout']['yaxis'].update({'title': 'True Value'})
@@ -89,11 +145,15 @@ class ClassifierPlotHandler(PlotHandler):
         iplot(self.confusion_matrix_figure)
 
     def plot_roc(self, title='ROC Curve'):
+        """
+        Plotting the ROC curve of the classifier.
+        :param title: the Title of the plot.
+        """
         data = list()
 
         if self.n_classes < 3:
             # False positive rate and true positive rate - computed from roc_curve()
-            fpr, tpr, _ = roc_curve(self.target, self.predicted_target_score[:, 1])
+            fpr, tpr, _ = roc_curve(self.dataset['target'], self.predicted_target_score[:, 1])
 
             # Area under curve.
             roc_auc = auc(fpr, tpr)
@@ -112,7 +172,8 @@ class ClassifierPlotHandler(PlotHandler):
             roc_auc = dict()
 
             for i in range(self.n_classes):
-                fpr[i], tpr[i], _ = roc_curve((self.target == i).astype(float), self.predicted_target_score[:, i])
+                fpr[i], tpr[i], _ = roc_curve((self.dataset['target'] == i).astype(float),
+                                              self.predicted_target_score[:, i])
                 roc_auc[i] = auc(fpr[i], tpr[i])
 
                 data.append(go.Scatter(x=fpr[i],
@@ -134,23 +195,58 @@ class ClassifierPlotHandler(PlotHandler):
 
         iplot(self.roc_figure)
 
+    def save_prediction_figure(self, file_name):
+        """
+        Saving the prediction figure as an html file.
+        :param file_name: the html file name.
+        """
+
+        self.save_figure(self.prediction_figure, file_name)
+
+    def save_roc_figure(self, file_name):
+        """
+        Saving the ROC curve figure as an html file.
+        :param file_name: the html file name.
+        """
+
+        self.save_figure(self.roc_figure, file_name)
+
+    def save_confusion_matrix_figure(self, file_name):
+        """
+        Saving the confusion matrix figure as an html file.
+        :param file_name: the html file name.
+        """
+
+        self.save_figure(self.confusion_matrix_figure, file_name)
+
 
 class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
     """ Handles all the plots related of the chosen classifier on 2D. """
 
-    def __init__(self, data_set_df, trained_classifier, step_size=0.01, **params):
+    def __init__(self, dataset, trained_classifier, step_size=0.01, **params):
+        """
+        The initialization function of the 2D classifier plot handler.
+        :param dataframe: the dataframe form which the handler is bonstructed.
+        :param trained_classifier: sklearn classifier (traind / fitted).
+        :param step_size: the resolution of the plot.
+        :param params: other params.
+        """
         self.step_size = step_size
 
-        assert {'x1', 'x2', 'y'}.issubset(data_set_df.columns), \
-            'Missing columns in dataset, columns must include x1, x2, y'
+        dataset['data'] = dataset['data'][:, :2]
 
-        super(TwoDimensionalClassifierPlotHandler, self).__init__(data_set_df, trained_classifier, **params)
+        super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
     def plot_prediction(self, title='Classifier Prediction'):
+        """
+        Plotting the classifier prediction and saving the figure.
+        :param title: Title of the plot
+        """
+
         data = list()
 
-        x_min, x_max = self.data_set_df['x1'].min() - 1, self.data_set_df['x1'].max() + 1
-        y_min, y_max = self.data_set_df['x2'].min() - 1, self.data_set_df['x2'].max() + 1
+        x_min, x_max = self.dataset['data'][:, 0].min() - 1, self.dataset['data'][:, 0].max() + 1
+        y_min, y_max = self.dataset['data'][:, 1].min() - 1, self.dataset['data'][:, 1].max() + 1
 
         x = np.arange(x_min, x_max, self.step_size)
         y = np.arange(y_min, y_max, self.step_size)
@@ -164,10 +260,10 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
                                showscale=False,
                                colorscale='Viridis'))
 
-        data.append(go.Scatter(x=self.data_set_df['x1'],
-                               y=self.data_set_df['x2'],
+        data.append(go.Scatter(x=self.dataset['data'][:, 0],
+                               y=self.dataset['data'][:, 1],
                                mode='markers',
-                               marker=dict(color=self.data_set_df['y'],
+                               marker=dict(color=self.dataset['target'],
                                            showscale=False,
                                            colorscale='Reds',
                                            line=dict(color='black', width=1))))
@@ -182,26 +278,34 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
     """ Handles all the plots related of the chosen classifier on 3D. """
 
-    def __init__(self, data_set_df, trained_classifier, **params):
-        assert {'x1', 'x2', 'x3', 'y'}.issubset(data_set_df.columns),\
-            'Missing columns in dataset, columns must include x1, x2, x3, y'
+    def __init__(self, dataset, trained_classifier, **params):
+        """
+        The initialization function of the 3D classifier plot handler.
+        :param dataframe: the dataframe form which the handler is bonstructed.
+        :param trained_classifier: sklearn classifier (traind / fitted).
+        :param params: other params.
+        """
 
-        super(ThreeDimensionalClassifierPlotHandler, self).__init__(data_set_df, trained_classifier, **params)
+        dataset['data'] = dataset['data'][:, :3]
+
+        super(ThreeDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
     def plot_prediction(self, title='Classifier Prediction'):
+        """
+        Plotting the classifier prediction and saving the figure.
+        :param title: Title of the plot
+        """
 
-        labels = self.trained_classifier.predict(self.data_set_df[['x1', 'x2', 'x3']])
+        labels = self.trained_classifier.predict(self.dataset['data'])
 
-        data = list()
-
-        data.append(go.Scatter3d(x=self.data_set_df['x1'],
-                                 y=self.data_set_df['x2'],
-                                 z=self.data_set_df['x3'],
-                                 showlegend=False,
-                                 mode='markers',
-                                 marker=dict(
-                                     color=labels.astype(np.float),
-                                     line=dict(color='black', width=1))))
+        data = [go.Scatter3d(x=self.dataset['data'][:, 0],
+                             y=self.dataset['data'][:, 1],
+                             z=self.dataset['data'][:, 2],
+                             showlegend=False,
+                             mode='markers',
+                             marker=dict(
+                                 color=labels.astype(np.float),
+                                 line=dict(color='black', width=1)))]
 
         layout = go.Layout(title=title)
 
