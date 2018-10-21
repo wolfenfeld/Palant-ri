@@ -32,9 +32,9 @@ class ClassifierPlotHandler(PlotHandler):
         self._n_classes = len(set(dataset['target']))
 
         if hasattr(self._dataset, 'target_names'):
-            self._class_names = self._dataset['target_names']
+            self.class_names = self._dataset['target_names']
         else:
-            self._class_names = ['Class {0}'.format(i) for i in range(self.n_classes)]
+            self.class_names = ['Class {0}'.format(i) for i in range(self.n_classes)]
 
         # Score of the predicted target store.
         if hasattr(self._trained_classifier, 'predict_proba'):
@@ -116,16 +116,18 @@ class ClassifierPlotHandler(PlotHandler):
         """
         return self._n_classes
 
-    def plot_confusion_matrix(self,
-                              normalize=False,
-                              colorscale='Viridis'):
+    def build_confusion_matrix_figure(self,
+                                      title='Confusion Matrix',
+                                      normalize=False,
+                                      colorscale='Viridis'):
         """
-        Plots the confusion matrix and saves the figure in confusion_matrix_figure.
+        Builds the confusion matrix figure in confusion_matrix_figure.
+        :param title: the title of the figure
         :param normalize: if True the confusion matrix is normalized.
-        :param colorscale: the color scale of the plot.
+        :param colorscale: the color scale of the figure.
         """
 
-        prediction = self.trained_classifier.predict(self.dataset['data'])
+        prediction = self.trained_classifier.predict(self._dataset['data'])
 
         self._confusion_matrix = confusion_matrix(self._dataset['target'], prediction)
 
@@ -135,18 +137,31 @@ class ClassifierPlotHandler(PlotHandler):
             cm = self._confusion_matrix
 
         cm = np.flipud(cm)
-        x = list(self._class_names)
-        y = list(reversed(self._class_names))
+        x = list(self.class_names)
+        y = list(reversed(self.class_names))
 
         self.confusion_matrix_figure = ff.create_annotated_heatmap(z=cm, x=x, y=y, colorscale=colorscale)
         self.confusion_matrix_figure['layout']['yaxis'].update({'title': 'True Value'})
-        self.confusion_matrix_figure['layout']['xaxis'].update({'title': 'Predicted Value'})
+        self.confusion_matrix_figure['layout']['xaxis'].update({'title': title+'<br> <br> Predicted Value'})
+
+    def plot_confusion_matrix(self,
+                              normalize=False,
+                              colorscale='Viridis'):
+        """
+        Plotting the confusion matrix figure with plotly's iplot function.
+        If the figure is yet to be built or the default params are changed, the figure is built.
+        :param normalize: if True the confusion matrix is normalized.
+        :param colorscale: the color scale of the figure.
+        """
+
+        if not self.confusion_matrix_figure or not normalize or colorscale != 'Viridis':
+            self.build_confusion_matrix_figure(normalize=normalize, colorscale=colorscale)
 
         iplot(self.confusion_matrix_figure)
 
-    def plot_roc(self, title='ROC Curve'):
+    def build_roc_figure(self, title='ROC Curve'):
         """
-        Plotting the ROC curve of the classifier.
+        Building the ROC curve figure of the classifier.
         :param title: the Title of the plot.
         """
         data = list()
@@ -193,7 +208,38 @@ class ClassifierPlotHandler(PlotHandler):
 
         self.roc_figure = go.Figure(data=data, layout=layout)
 
+    def plot_roc(self, title='ROC Curve'):
+        """
+        Plotting the ROC curve figure with plotly's iplot function.
+        :param title: plot title.
+        """
+        if not self.roc_figure:
+            self.build_roc_figure(title=title)
+
+        self.roc_figure['layout']['title'] = title
+
         iplot(self.roc_figure)
+
+    def build_prediction_figure(self, title='Classifier Prediction'):
+        """
+        Building the classifier prediction figure.
+        :param title: Title of the figure.
+        """
+
+        pass
+
+    def plot_prediction(self, title='Classifier Prediction'):
+        """
+        Plotting the prediction figure with plotly's iplot function.
+        :param title: plot title.
+        """
+
+        if not self.prediction_figure:
+            self.build_prediction_figure(title=title)
+        else:
+            self.prediction_figure['layout']['title'] = title
+
+        iplot(self.prediction_figure)
 
     def save_prediction_figure(self, file_name):
         """
@@ -237,10 +283,10 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
-    def plot_prediction(self, title='Classifier Prediction'):
+    def build_prediction_figure(self, title='Classifier Prediction'):
         """
-        Plotting the classifier prediction and saving the figure.
-        :param title: Title of the plot
+        Building the classifier prediction figure.
+        :param title: Title of the figure.
         """
 
         data = list()
@@ -272,8 +318,6 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         self.prediction_figure = go.Figure(data=data, layout=layout)
 
-        iplot(self.prediction_figure)
-
 
 class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
     """ Handles all the plots related of the chosen classifier on 3D. """
@@ -290,7 +334,7 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         super(ThreeDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
-    def plot_prediction(self, title='Classifier Prediction'):
+    def build_prediction_figure(self, title='Classifier Prediction'):
         """
         Plotting the classifier prediction and saving the figure.
         :param title: Title of the plot
@@ -310,4 +354,3 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
         layout = go.Layout(title=title)
 
         self.prediction_figure = go.Figure(data=data, layout=layout)
-        iplot(self.prediction_figure)
