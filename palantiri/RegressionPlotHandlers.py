@@ -70,24 +70,24 @@ class RegressionPlotHandler(PlotHandler):
         """
         self._dataset = dataset
 
-    def build_prediction_figure(self, title='Regression Plot'):
+    def build_prediction_figure(self, figure_layout):
         """
         Building the regression figure.
-        :param title: Title of the figure.
+        :param figure_layout: figure layout - plot.ly layout object.
         """
 
         pass
 
-    def plot_prediction(self, title='Regression Plot'):
+    def plot_prediction(self, figure_layout=go.Layout(title='Regression Plot')):
         """
-        Plotting the regression figure with plotly's iplot function.
-        :param title: plot title.
+        Plotting the regression figure with plot.ly's iplot function.
+        :param figure_layout: figure layout - plot.ly layout object.
         """
 
         if not self.prediction_figure:
-            self.build_prediction_figure(title=title)
+            self.build_prediction_figure(figure_layout)
         else:
-            self.prediction_figure['layout']['title'] = title
+            self.prediction_figure['layout'].update(figure_layout)
 
         iplot(self.prediction_figure)
 
@@ -114,10 +114,10 @@ class OneDimensionalRegressionPlotHandler(RegressionPlotHandler):
 
         super(OneDimensionalRegressionPlotHandler, self).__init__(dataset, trained_regressor, **params)
 
-    def build_prediction_figure(self, title='Classifier Prediction', step_size=0.1, x_range=None):
+    def build_prediction_figure(self, figure_layout, step_size=0.1, x_range=None):
         """
         Building the regression figure.
-        :param title: Title of the plot
+        :param figure_layout: figure layout - plot.ly layout object.
         :param step_size: resolution of the x-axis.
         :param x_range: the range of the prediction (x-axis),
                         list of 2 numbers - indicating the start and end of the range
@@ -140,9 +140,7 @@ class OneDimensionalRegressionPlotHandler(RegressionPlotHandler):
                            showlegend=False,
                            mode='lines')]
 
-        layout = go.Layout(title=title)
-
-        self.prediction_figure = go.Figure(data=data, layout=layout)
+        self.prediction_figure = go.Figure(data=data, layout=figure_layout)
 
 
 class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
@@ -160,10 +158,10 @@ class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
 
         super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_regressor, **params)
 
-    def build_prediction_figure(self, title='Classifier Prediction', x_range=None, y_range=None, step_size=0.1):
+    def build_prediction_figure(self,  figure_layout, x_range=None, y_range=None, step_size=0.1):
         """
         Building the regression figure.
-        :param title: Title of the plot
+        :param figure_layout: figure layout - plot.ly layout object.
         :param step_size: resolution of the x-axis.
         :param x_range: the range of the prediction (x-axis),
                         list of 2 numbers - indicating the start and end of the range
@@ -196,6 +194,4 @@ class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
                                          colorscale='Reds',
                                          line=dict(color='black', width=0.3)))]
 
-        layout = go.Layout(title=title)
-
-        self.prediction_figure = go.Figure(data=data, layout=layout)
+        self.prediction_figure = go.Figure(data=data, layout=figure_layout)
