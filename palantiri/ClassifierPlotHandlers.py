@@ -54,8 +54,8 @@ class ClassifierPlotHandler(PlotHandler):
     def from_pandas_dataframe(cls, dataframe, trained_classifier, **params):
         """
         Constructing the handler from a pandas dataframe.
-        :param dataframe: the dataframe form which the handler is bonstructed.
-        :param trained_classifier: sklearn classifier (traind / fitted).
+        :param dataframe: the dataframe form which the handler is constructed.
+        :param trained_classifier: sklearn classifier (trained / fitted).
         :param params: other params.
         :return: returns the classifier plot handler object.
         """
@@ -269,24 +269,23 @@ class ClassifierPlotHandler(PlotHandler):
 class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
     """ Handles all the plots related of the chosen classifier on 2D. """
 
-    def __init__(self, dataset, trained_classifier, step_size=0.01, **params):
+    def __init__(self, dataset, trained_classifier, **params):
         """
         The initialization function of the 2D classifier plot handler.
-        :param dataframe: the dataframe form which the handler is bonstructed.
-        :param trained_classifier: sklearn classifier (traind / fitted).
-        :param step_size: the resolution of the plot.
+        :param dataframe: the dataframe form which the handler is constructed.
+        :param trained_classifier: sklearn classifier (trained / fitted).
         :param params: other params.
         """
-        self.step_size = step_size
 
         dataset['data'] = dataset['data'][:, :2]
 
         super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
-    def build_prediction_figure(self, title='Classifier Prediction'):
+    def build_prediction_figure(self, title='Classifier Prediction', step_size=0.01):
         """
         Building the classifier prediction figure.
         :param title: Title of the figure.
+        :param step_size: Plot resolution.
         """
 
         data = list()
@@ -294,8 +293,8 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
         x_min, x_max = self.dataset['data'][:, 0].min() - 1, self.dataset['data'][:, 0].max() + 1
         y_min, y_max = self.dataset['data'][:, 1].min() - 1, self.dataset['data'][:, 1].max() + 1
 
-        x = np.arange(x_min, x_max, self.step_size)
-        y = np.arange(y_min, y_max, self.step_size)
+        x = np.arange(x_min, x_max, step_size)
+        y = np.arange(y_min, y_max, step_size)
         x_mesh, y_mesh = np.meshgrid(x, y)
 
         z = self.trained_classifier.predict(np.column_stack((x_mesh.ravel(), y_mesh.ravel())))
@@ -325,8 +324,8 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
     def __init__(self, dataset, trained_classifier, **params):
         """
         The initialization function of the 3D classifier plot handler.
-        :param dataframe: the dataframe form which the handler is bonstructed.
-        :param trained_classifier: sklearn classifier (traind / fitted).
+        :param dataframe: the dataframe form which the handler is constructed.
+        :param trained_classifier: sklearn classifier (trained / fitted).
         :param params: other params.
         """
 
