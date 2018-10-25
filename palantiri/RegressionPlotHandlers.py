@@ -26,6 +26,8 @@ class RegressionPlotHandler(PlotHandler):
 
         self.prediction_figure = None
 
+        self.target_name = 'Target'
+
         super(RegressionPlotHandler, self).__init__(**params)
 
     @classmethod
@@ -78,11 +80,14 @@ class RegressionPlotHandler(PlotHandler):
 
         pass
 
-    def plot_prediction(self, figure_layout=go.Layout(title='Regression Plot')):
+    def plot_prediction(self, figure_layout=None):
         """
         Plotting the regression figure with plot.ly's iplot function.
         :param figure_layout: figure layout - plot.ly layout object.
         """
+
+        if not figure_layout:
+            figure_layout = go.Layout(title='Regression Plot')
 
         if not self.prediction_figure:
             self.build_prediction_figure(figure_layout)
@@ -140,6 +145,10 @@ class OneDimensionalRegressionPlotHandler(RegressionPlotHandler):
                            showlegend=False,
                            mode='lines')]
 
+        if 'feature_names' in self.dataset.keys():
+            figure_layout['xaxis'].update({'title': self.dataset['feature_names'][0]})
+            figure_layout['yaxis'].update({'title': self.target_name})
+
         self.prediction_figure = go.Figure(data=data, layout=figure_layout)
 
 
@@ -158,7 +167,7 @@ class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
 
         super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_regressor, **params)
 
-    def build_prediction_figure(self,  figure_layout, x_range=None, y_range=None, step_size=0.1):
+    def build_prediction_figure(self,  figure_layout=go.Layout(), x_range=None, y_range=None, step_size=0.1):
         """
         Building the regression figure.
         :param figure_layout: figure layout - plot.ly layout object.
@@ -193,5 +202,11 @@ class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
                              marker=dict(showscale=False,
                                          colorscale='Reds',
                                          line=dict(color='black', width=0.3)))]
+
+        if 'feature_names' in self.dataset.keys():
+            figure_layout['scene'].update(
+                dict(xaxis={'title': self.dataset['feature_names'][0]},
+                     yaxis={'title': self.dataset['feature_names'][1]},
+                     zaxis={'title': self.target_name}))
 
         self.prediction_figure = go.Figure(data=data, layout=figure_layout)

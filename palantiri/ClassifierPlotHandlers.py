@@ -152,14 +152,16 @@ class ClassifierPlotHandler(PlotHandler):
 
         self.confusion_matrix_figure['layout'].update(figure_layout)
 
-    def plot_confusion_matrix(self,
-                              figure_layout=go.Layout(
-                                  xaxis={'title': 'Confusion Matrix <br /><br />Predicted Value'},
-                                  yaxis={'title': 'True Value'})):
+    def plot_confusion_matrix(self, figure_layout=None):
         """
         Plotting the confusion matrix figure with plot.ly's iplot function.
         :param figure_layout: figure layout - plot.ly layout object.
         """
+
+        if not figure_layout:
+            figure_layout = go.Layout(
+                xaxis={'title': 'Confusion Matrix <br /><br />Predicted Value'},
+                yaxis={'title': 'True Value'})
 
         if not self.confusion_matrix_figure:
             self.build_confusion_matrix_figure(figure_layout)
@@ -168,7 +170,7 @@ class ClassifierPlotHandler(PlotHandler):
 
         iplot(self.confusion_matrix_figure)
 
-    def build_roc_figure(self, figure_layout):
+    def build_roc_figure(self, figure_layout=go.Layout()):
         """
         Building the ROC curve figure of the classifier.
         :param figure_layout: figure layout - plot.ly layout object.
@@ -204,7 +206,8 @@ class ClassifierPlotHandler(PlotHandler):
                 data.append(go.Scatter(x=fpr[i],
                                        y=tpr[i],
                                        mode='lines',
-                                       name='ROC curve of class {0} (area = {1:0.2f})'''.format(i, roc_auc[i])))
+                                       name='ROC curve of class {0} (area = {1:0.2f})'''.format(
+                                           self.class_names[i], roc_auc[i])))
 
         # Diagonal
         data.append(go.Scatter(x=[0, 1], y=[0, 1],
@@ -214,13 +217,17 @@ class ClassifierPlotHandler(PlotHandler):
 
         self.roc_figure = go.Figure(data=data, layout=figure_layout)
 
-    def plot_roc(self, figure_layout=go.Layout(title='ROC Curve',
-                                               xaxis=dict(title='False Positive Rate'),
-                                               yaxis=dict(title='True Positive Rate'))):
+    def plot_roc(self, figure_layout=None):
         """
         Plotting the ROC curve figure with plot.ly's iplot function.
         :param figure_layout: figure layout - plot.ly Layout object.
         """
+
+        if not figure_layout:
+            figure_layout = go.Layout(title='ROC Curve',
+                                      xaxis=dict(title='False Positive Rate'),
+                                      yaxis=dict(title='True Positive Rate'))
+
         if not self.roc_figure:
             self.build_roc_figure(figure_layout=figure_layout)
         else:
@@ -236,11 +243,14 @@ class ClassifierPlotHandler(PlotHandler):
 
         pass
 
-    def plot_prediction(self, figure_layout=go.Layout(title='Classifier Prediction')):
+    def plot_prediction(self, figure_layout=None):
         """
         Plotting the prediction figure with plot.ly's iplot function.
         :param figure_layout: figure layout - plot.ly Layout object.
         """
+
+        if not figure_layout:
+            figure_layout = go.Layout(title='Classifier Prediction')
 
         if not self.prediction_figure:
             self.build_prediction_figure(figure_layout=figure_layout)
@@ -289,7 +299,7 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
-    def build_prediction_figure(self, figure_layout, step_size=0.01):
+    def build_prediction_figure(self, figure_layout=go.Layout(), step_size=0.01):
         """
         Building the classifier prediction figure.
         :param figure_layout: figure layout - plot.ly Layout object.
@@ -321,6 +331,10 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
                                            colorscale='Reds',
                                            line=dict(color='black', width=1))))
 
+        if 'feature_names' in self.dataset.keys():
+            figure_layout['xaxis'].update({'title': self.dataset['feature_names'][0]})
+            figure_layout['yaxis'].update({'title': self.dataset['feature_names'][1]})
+
         self.prediction_figure = go.Figure(data=data, layout=figure_layout)
 
 
@@ -339,7 +353,7 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         super(ThreeDimensionalClassifierPlotHandler, self).__init__(dataset, trained_classifier, **params)
 
-    def build_prediction_figure(self, figure_layout):
+    def build_prediction_figure(self, figure_layout=go.Layout()):
         """
         Plotting the classifier prediction and saving the figure.
         :param figure_layout: figure layout - plot.ly Layout object.
@@ -347,13 +361,25 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         labels = self.trained_classifier.predict(self.dataset['data'])
 
-        data = [go.Scatter3d(x=self.dataset['data'][:, 0],
-                             y=self.dataset['data'][:, 1],
-                             z=self.dataset['data'][:, 2],
-                             showlegend=False,
-                             mode='markers',
-                             marker=dict(
-                                 color=labels.astype(np.float),
-                                 line=dict(color='black', width=1)))]
+        data = list()
+
+        for label in set(labels):
+
+            data_points = self.dataset['data'][np.in1d(labels, np.asarray(label))]
+
+            data.append(go.Scatter3d(x=data_points[:, 0],
+                                     y=data_points[:, 1],
+                                     z=data_points[:, 2],
+                                     showlegend=True,
+                                     name=self.class_names[label],
+                                     mode='markers',
+                                     marker=dict(
+                                         line=dict(color='black', width=1))))
+
+        if 'feature_names' in self.dataset.keys():
+            figure_layout['scene'].update(
+                dict(xaxis={'title': self.dataset['feature_names'][0]},
+                     yaxis={'title': self.dataset['feature_names'][1]},
+                     zaxis={'title': self.dataset['feature_names'][2]}))
 
         self.prediction_figure = go.Figure(data=data, layout=figure_layout)
