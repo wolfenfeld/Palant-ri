@@ -137,11 +137,13 @@ class OneDimensionalRegressionPlotHandler(RegressionPlotHandler):
         data = [go.Scatter(x=self.dataset['data'][:, 0],
                            y=self.dataset['target'],
                            showlegend=False,
+                           hoverinfo='skip',
                            mode='markers',
                            marker=dict(
                                line=dict(color='black', width=1))),
                 go.Scatter(x=x.ravel(),
                            y=self.trained_regressor.predict(x).ravel(),
+                           hoverinfo='y',
                            showlegend=False,
                            mode='lines')]
 
@@ -194,10 +196,12 @@ class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
 
         data = [go.Surface(x=x, y=y, z=z,
                            showscale=False,
-                           colorscale='Viridis'),
+                           colorscale='Viridis',
+                           hoverinfo='z'),
                 go.Scatter3d(x=self.dataset['data'][:, 0],
                              y=self.dataset['data'][:, 1],
                              z=self.dataset['target'],
+                             hoverinfo='skip',
                              mode='markers',
                              marker=dict(showscale=False,
                                          colorscale='Reds',

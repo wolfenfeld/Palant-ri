@@ -188,6 +188,7 @@ class ClassifierPlotHandler(PlotHandler):
             # Updating the data list.
             data.append(go.Scatter(x=fpr,
                                    y=tpr,
+                                   hoverinfo='y',
                                    mode='lines',
                                    line=dict(color='darkorange'),
                                    name='ROC curve (area = %0.2f)' % roc_auc))
@@ -205,6 +206,7 @@ class ClassifierPlotHandler(PlotHandler):
 
                 data.append(go.Scatter(x=fpr[i],
                                        y=tpr[i],
+                                       hoverinfo='y',
                                        mode='lines',
                                        name='ROC curve of class {0} (area = {1:0.2f})'''.format(
                                            self.class_names[i], roc_auc[i])))
@@ -212,6 +214,7 @@ class ClassifierPlotHandler(PlotHandler):
         # Diagonal
         data.append(go.Scatter(x=[0, 1], y=[0, 1],
                                mode='lines',
+                               hoverinfo='skip',
                                line=dict(color='navy', dash='dash'),
                                showlegend=False))
 
@@ -321,10 +324,13 @@ class TwoDimensionalClassifierPlotHandler(ClassifierPlotHandler):
 
         data.append(go.Contour(x=x, y=y, z=z,
                                showscale=False,
+                               hoverinfo='skip',
                                colorscale='Viridis'))
 
         data.append(go.Scatter(x=self.dataset['data'][:, 0],
                                y=self.dataset['data'][:, 1],
+                               text=[self.class_names[i] for i in self.dataset['target']],
+                               hoverinfo='text',
                                mode='markers',
                                marker=dict(color=self.dataset['target'],
                                            showscale=False,
@@ -370,6 +376,8 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
             data.append(go.Scatter3d(x=data_points[:, 0],
                                      y=data_points[:, 1],
                                      z=data_points[:, 2],
+                                     text=self.class_names[label],
+                                     hoverinfo='text',
                                      showlegend=True,
                                      name=self.class_names[label],
                                      mode='markers',
