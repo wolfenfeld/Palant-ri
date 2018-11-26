@@ -23,7 +23,14 @@ class ClusteringPlotHandler(PlotHandler):
 
         self.prediction_figure = None
 
-        self.classes_names = ['Class {0}'.format(i) for i in range(self.trained_cluster.n_clusters)]
+        if hasattr(self.trained_cluster, 'n_clusters'):
+            self.n_clusters = self.trained_cluster.n_clusters
+        elif hasattr(self.trained_cluster, 'labels_'):
+            self.n_clusters = len([i for i in set(self.trained_cluster.labels_) if i >= 0])
+        else:
+            raise Exception('Number of clusters is not defined.')
+
+        self.classes_names = ['Class {0}'.format(i) for i in range(self.n_clusters)]
 
         super(ClusteringPlotHandler, self).__init__(**params)
 
