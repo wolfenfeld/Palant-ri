@@ -1,5 +1,4 @@
-from plotly.offline import init_notebook_mode, plot
-init_notebook_mode(connected=True)
+from plotly.offline import plot
 
 
 class PlotHandler(object):
