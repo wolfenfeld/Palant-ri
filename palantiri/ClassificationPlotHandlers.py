@@ -133,8 +133,7 @@ class ClassifierPlotHandler(PlotHandler):
         else:
             self._confusion_matrix = self._confusion_matrix
 
-    def build_confusion_matrix_figure(self,
-                                      figure_layout):
+    def build_confusion_matrix_figure(self, figure_layout):
         """
         Builds the confusion matrix figure in confusion_matrix_figure.
         :param figure_layout: figure layout - plot.ly layout object.
