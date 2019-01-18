@@ -154,7 +154,7 @@ class OneDimensionalRegressionPlotHandler(RegressionPlotHandler):
         self.prediction_figure = go.Figure(data=data, layout=figure_layout)
 
 
-class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
+class TwoDimensionalRegressionPlotHandler(RegressionPlotHandler):
     """ Handles all the plots related of the chosen regressor on 2D. """
 
     def __init__(self, dataset, trained_regressor, **params):
@@ -167,7 +167,7 @@ class TwoDimensionalClassifierPlotHandler(RegressionPlotHandler):
 
         dataset['data'] = dataset['data'][:, :2]
 
-        super(TwoDimensionalClassifierPlotHandler, self).__init__(dataset, trained_regressor, **params)
+        super(TwoDimensionalRegressionPlotHandler, self).__init__(dataset, trained_regressor, **params)
 
     def build_prediction_figure(self,  figure_layout=go.Layout(), x_range=None, y_range=None, step_size=0.1):
         """

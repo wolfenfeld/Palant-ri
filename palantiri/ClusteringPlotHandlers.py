@@ -163,7 +163,7 @@ class TwoDimensionalClusteringPlotHandler(ClusteringPlotHandler):
         self.prediction_figure = go.Figure(data=data, layout=figure_layout)
 
 
-class ThreeDimensionalClassifierPlotHandler(ClusteringPlotHandler):
+class ThreeDimensionalClusteringPlotHandler(ClusteringPlotHandler):
     """ Handles all the plots related of the chosen cluster on 3D. """
 
     def __init__(self, dataset, trained_cluster, **params):
@@ -176,7 +176,7 @@ class ThreeDimensionalClassifierPlotHandler(ClusteringPlotHandler):
 
         dataset['data'] = dataset['data'][:, :3]
 
-        super(ThreeDimensionalClassifierPlotHandler, self).__init__(dataset, trained_cluster, **params)
+        super(ThreeDimensionalClusteringPlotHandler, self).__init__(dataset, trained_cluster, **params)
 
     def build_prediction_figure(self, figure_layout=go.Layout()):
         """
