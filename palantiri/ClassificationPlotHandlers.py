@@ -389,4 +389,4 @@ class ThreeDimensionalClassifierPlotHandler(ClassifierPlotHandler):
                      yaxis={'title': self.dataset['feature_names'][1]},
                      zaxis={'title': self.dataset['feature_names'][2]}))
 
-        self.prediction_figure = go.Figure(data=data, layout=figure_layout)
+        self.prediction_figure = go.FigureWidget(data=data, layout=figure_layout)
