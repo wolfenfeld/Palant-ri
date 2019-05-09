@@ -19,7 +19,7 @@ class RegretPlotHandler(PlotHandler):
         """
         self._cumulative_regret_data = cumulative_regret_data
         self.regret_figure = None
-        self.colors = cl.scales['7']['qual']['Set1']
+        self.colors = cl.scales['7']['qual']['Accent']
 
         super(RegretPlotHandler, self).__init__(**params)
 
