@@ -13,6 +13,7 @@ class GraphPlotHandler(PlotHandler):
     """
     The graph plot handler - handles all the graph related plots.
     """
+
     def __init__(self, graph, node_data_key=None, **params):
         """
         Initialization function
@@ -44,8 +45,10 @@ class GraphPlotHandler(PlotHandler):
 
         dot_graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
 
-        node_attributes = {node.obj_dict['name']: {'label': node.get_label().replace('\\n', '<br>').replace('"','')}
-                           for node in dot_graph.get_nodes() if node.get_label()}
+        node_attributes = {node.obj_dict['name']: {
+            'label': node.get_label().replace('\\n', '<br>').replace('"', ''),
+            'color': node.get_label().replace('"', '').split('class')[-1].split(' ')[-1]}
+            for node in dot_graph.get_nodes() if node.get_label()}
 
         edge_list = [edge.obj_dict['points'] for edge in dot_graph.get_edge_list()]
 
@@ -127,7 +130,10 @@ class GraphPlotHandler(PlotHandler):
             node_trace['x'] += tuple([x])
             node_trace['y'] += tuple([y])
             node_trace['text'] += tuple([node_data[self.node_data_key]])
-            node_trace['marker']['color'] += tuple([hash(node_data[self.node_data_key]) % 256])
+            if 'color' in node_data.keys():
+                node_trace['marker']['color'] += tuple([hash(node_data['color']) % 256])
+            else:
+                node_trace['marker']['color'] += tuple([hash(node_data[self.node_data_key]) % 256])
         return node_trace
 
     def build_graph_figure(self, figure_layout=go.Layout(), pos=None):
