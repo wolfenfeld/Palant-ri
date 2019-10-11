@@ -1,6 +1,9 @@
-from palantiri.BasePlotHandlers import PlotHandler
-
+from io import StringIO
 import networkx as nx
+import pydotplus
+from sklearn.tree import export_graphviz
+
+from palantiri.BasePlotHandlers import PlotHandler
 
 import plotly.graph_objs as go
 from plotly.offline import iplot
@@ -22,6 +25,41 @@ class GraphPlotHandler(PlotHandler):
         self.graph_figure = None
 
         super(GraphPlotHandler, self).__init__(**params)
+
+    @classmethod
+    def from_decision_tree(cls, decision_tree, feature_names, **params):
+        """
+        Handler from Decision tree
+        :param decision_tree:  sklearn decision tree
+        :param feature_names: the feature names
+        :param params: other params
+        :return: graph plot handler for the decision tree.
+        """
+        dot_data = StringIO()
+
+        class_names = [str(name) for name in decision_tree.classes_]
+
+        export_graphviz(decision_tree, out_file=dot_data, feature_names=feature_names,
+                        class_names=class_names, filled=True)
+
+        dot_graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+
+        node_attributes = {node.obj_dict['name']: {'label': node.get_label().replace('\\n', '<br>').replace('"','')}
+                           for node in dot_graph.get_nodes() if node.get_label()}
+
+        edge_list = [edge.obj_dict['points'] for edge in dot_graph.get_edge_list()]
+
+        nx_graph = nx.from_edgelist(edgelist=edge_list)
+
+        pos = nx.drawing.nx_pydot.graphviz_layout(nx_graph, prog='dot')
+
+        nx.set_node_attributes(nx_graph, node_attributes)
+
+        cls_handler = cls(graph=nx_graph, node_data_key='label', **params)
+
+        cls_handler.build_graph_figure(pos=pos)
+
+        return cls_handler
 
     @property
     def graph(self):
@@ -131,5 +169,8 @@ class GraphPlotHandler(PlotHandler):
 
         if not self.graph_figure:
             self.build_graph_figure(figure_layout=figure_layout)
+
+        else:
+            self.graph_figure.layout = figure_layout
 
         iplot(self.graph_figure)

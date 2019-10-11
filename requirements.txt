@@ -1,3 +1,4 @@
+pydotplus
 colorlover
 networkx
 plotly
