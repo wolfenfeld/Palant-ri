@@ -3,10 +3,10 @@ import networkx as nx
 import pydotplus
 from sklearn.tree import export_graphviz
 
-from palantiri.BasePlotHandlers import PlotHandler
-
 import plotly.graph_objs as go
 from plotly.offline import iplot
+
+from palantiri.BasePlotHandlers import PlotHandler
 
 
 class GraphPlotHandler(PlotHandler):
@@ -157,7 +157,7 @@ class GraphPlotHandler(PlotHandler):
         """
 
         if not figure_layout:
-            figure_layout = go.Layout(title='Graph Plot',
+            figure_layout = go.Layout(title=dict(text='Graph Plot', x=0.5),
                                       xaxis=dict(
                                           autorange=True,
                                           showgrid=False,

@@ -1,9 +1,9 @@
-from palantiri.BasePlotHandlers import PlotHandler
-
 import numpy as np
 
 import plotly.graph_objs as go
 from plotly.offline import iplot
+
+from palantiri.BasePlotHandlers import PlotHandler
 
 
 class ClusteringPlotHandler(PlotHandler):
