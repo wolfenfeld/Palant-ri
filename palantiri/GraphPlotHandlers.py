@@ -1,9 +1,9 @@
 from io import StringIO
 import networkx as nx
 from sklearn.tree import export_graphviz
+import pydotplus
 
 import plotly.graph_objs as go
-import pydotplus
 from plotly.offline import iplot
 
 from palantiri.BasePlotHandlers import PlotHandler
@@ -146,10 +146,13 @@ class GraphPlotHandler(PlotHandler):
 
 
 class DecisionTreePlotHandler(GraphPlotHandler):
+    """
+    The decision tree plot handler - handles all the decision tree related plots.
+    """
 
     def __init__(self, decision_tree, feature_names, **params):
         """
-        Handler from Decision tree
+        Initializing function for Decision tree plot handler
         :param decision_tree:  sklearn decision tree
         :param feature_names: the feature names
         :param params: other params
@@ -166,6 +169,11 @@ class DecisionTreePlotHandler(GraphPlotHandler):
         self.build_graph_figure(pos=pos)
 
     def _extract_graph_with_attributes_and_positions_from_tree(self):
+        """
+        _extract_graph_with_attributes_and_positions_from_tree: extracts a graph representing the decision
+        tree and the position of each node.
+        :return: networkx graph an array
+        """
         dot_data = StringIO()
 
         class_names = [str(name) for name in self.decision_tree.classes_]
@@ -192,9 +200,17 @@ class DecisionTreePlotHandler(GraphPlotHandler):
 
 
 class RandomForestPlotHandler(GraphPlotHandler):
-
+    """
+    The random forest plot handler - handles all the random forest related plots.
+    """
     def __init__(self, random_forest, feature_names, **params):
-
+        """
+        Initializing function for random forest plot handler
+        :param random_forest:  sklearn random forest
+        :param feature_names: the feature names
+        :param params: other params
+        :return: graph plot handler for the decision tree.
+        """
         self.feature_names = feature_names
         self.list_of_trees = random_forest.estimators_
 
@@ -203,6 +219,11 @@ class RandomForestPlotHandler(GraphPlotHandler):
         super().__init__(graph=forest, node_data_key='label', **params)
 
     def _extract_graph_from_tree(self, decision_tree):
+        """
+        _extract_graph_from_tree: extracts a graph representing the decision tree.
+        :return: networkx graph
+        """
+
         dot_data = StringIO()
 
         class_names = [str(name) for name in decision_tree.classes_]
@@ -226,6 +247,10 @@ class RandomForestPlotHandler(GraphPlotHandler):
         return nx_graph
 
     def _build_forest_graph(self):
+        """
+        _build_forest_graph - building a networkx graph representing the forest
+        :return: a networkx graph
+        """
         forest = nx.DiGraph()
         forest.add_nodes_from(nodes_for_adding=['Root'])
 
@@ -246,7 +271,7 @@ class RandomForestPlotHandler(GraphPlotHandler):
         """
         Building the graph plot figure.
         :param figure_layout: a plot.ly layout object.
-        :param pos: the position of each node - if none: spring layout is used for position - {node_number:[x,y]}.
+        :param pos: place holder
         """
 
         structure = {node: "" for node in self.graph.nodes()}
@@ -262,33 +287,8 @@ class RandomForestPlotHandler(GraphPlotHandler):
             labels=list(structure.keys()),
             parents=list(structure.values()),
             hovertext=hover_text,
-            hoverinfo = "text",
+            hoverinfo="text",
             textinfo='text',
-            text=['' for i in range(len(structure.values()))])]
+            text=['' for _ in range(len(structure.values()))])]
 
         self.graph_figure = go.Figure(data=data, layout=figure_layout)
-
-
-if __name__ == '__main__':
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.datasets import load_wine
-
-    # load dataset
-    wine_data = load_wine()
-
-    # feature matrix
-    X = wine_data.data
-
-    # target vector
-    y = wine_data.target
-
-    # class labels
-    labels = wine_data.feature_names
-    clf = RandomForestClassifier(
-        n_estimators=10,
-        max_depth=3,
-        random_state=42
-    )
-
-    clf.fit(X, y)
-    handler = RandomForestPlotHandler(random_forest=clf, feature_names=labels)
