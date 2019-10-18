@@ -255,10 +255,14 @@ class RandomForestPlotHandler(GraphPlotHandler):
             parent, label = edge
             structure[label] = parent
 
+        hover_text = [node_data['label'] if 'label' in node_data else ''
+                      for node, node_data in self.graph.nodes(data=True)]
+
         data = [go.Sunburst(
             labels=list(structure.keys()),
             parents=list(structure.values()),
-            values=[data['label'] if 'label' in data else '' for node, data in self.graph.nodes(data=True)],
+            hovertext=hover_text,
+            hoverinfo = "text",
             textinfo='text',
             text=['' for i in range(len(structure.values()))])]
 
