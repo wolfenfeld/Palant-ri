@@ -1,13 +1,13 @@
-from palantiri.BasePlotHandlers import PlotHandler
 
 import numpy as np
-
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 
 
 import plotly.graph_objs as go
 import plotly.figure_factory as ff
 from plotly.offline import iplot
+
+from palantiri.BasePlotHandlers import PlotHandler
 
 
 class ClassifierPlotHandler(PlotHandler):

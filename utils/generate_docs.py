@@ -4,7 +4,7 @@ import itertools
 
 from pydoc import ErrorDuringImport, importfile
 import inspect
-from palantiri.BasePlotHandlers import PlotHandler
+from palantiri import PlotHandler
 
 
 def generate_docs(module):

@@ -1,19 +1,15 @@
-.. Palantíri documentation master file, created by
-   sphinx-quickstart on Sat Oct 13 14:03:29 2018.
+.. palantiri documentation master file, created by
+   sphinx-quickstart on Wed Oct 23 20:14:45 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Palantíri's documentation!
+Welcome to palantiri's documentation!
 =====================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents
 
-   readme
-   source/modules
-
-
+   modules
 
 Indices and tables
 ==================

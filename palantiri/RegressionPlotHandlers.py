@@ -1,9 +1,9 @@
-from palantiri.BasePlotHandlers import PlotHandler
-
 import numpy as np
 
 import plotly.graph_objs as go
 from plotly.offline import iplot
+
+from palantiri.BasePlotHandlers import PlotHandler
 
 
 class RegressionPlotHandler(PlotHandler):
@@ -125,8 +125,8 @@ class OneDimensionalRegressionPlotHandler(RegressionPlotHandler):
         :param figure_layout: figure layout - plot.ly layout object.
         :param step_size: resolution of the x-axis.
         :param x_range: the range of the prediction (x-axis),
-                        list of 2 numbers - indicating the start and end of the range
-                        if none will take the minimum and maximum of the data set.
+        list of 2 numbers - indicating the start and end of the range
+        if none will take the minimum and maximum of the data set.
         """
 
         if not x_range:
@@ -175,8 +175,8 @@ class TwoDimensionalRegressionPlotHandler(RegressionPlotHandler):
         :param figure_layout: figure layout - plot.ly layout object.
         :param step_size: resolution of the x-axis.
         :param x_range: the range of the prediction (x-axis),
-                        list of 2 numbers - indicating the start and end of the range
-                        if none will take the minimum and maximum of the data set.
+        list of 2 numbers - indicating the start and end of the range
+        if none will take the minimum and maximum of the data set.
         :param y_range: similar to x_range for the y-axis.
         """
 
