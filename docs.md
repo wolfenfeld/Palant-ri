@@ -8,14 +8,14 @@ menu: true
 order: 2
 ---
 
-** palantiri package **
+## Palantiri Package Modules
 
-## Submodules
+* * *
 
 ## palantiri.BasePlotHandlers module
 
 
-#### class palantiri.BasePlotHandlers.PlotHandler(\*\*params)
+### class palantiri.BasePlotHandlers.PlotHandler(\*\*params)
 Bases: `object`
 
 Base class for the plot handlers
@@ -30,7 +30,7 @@ Saving the figure as an html file.
 ## palantiri.ClassificationPlotHandlers module
 
 
-#### class palantiri.ClassificationPlotHandlers.ClassifierPlotHandler(dataset, trained_classifier, \*\*params)
+### class palantiri.ClassificationPlotHandlers.ClassifierPlotHandler(dataset, trained_classifier, \*\*params)
 Bases: `palantiri.BasePlotHandlers.PlotHandler`
 
 Handles all the plots related of the chosen classifier.
@@ -66,7 +66,7 @@ The dataset
 :return: The dataset as a dictionary
 
 
-#### classmethod from_pandas_dataframe(dataframe, trained_classifier, \*\*params)
+### classmethod from_pandas_dataframe(dataframe, trained_classifier, \*\*params)
 Constructing the handler from a pandas dataframe.
 :param dataframe: the dataframe form which the handler is constructed.
 :param trained_classifier: sklearn classifier (trained / fitted).
@@ -119,7 +119,7 @@ The trained classifier .
 :return: The classifier in the sklearn format.
 
 
-#### class palantiri.ClassificationPlotHandlers.ThreeDimensionalClassifierPlotHandler(dataset, trained_classifier, \*\*params)
+### class palantiri.ClassificationPlotHandlers.ThreeDimensionalClassifierPlotHandler(dataset, trained_classifier, \*\*params)
 Bases: `palantiri.ClassificationPlotHandlers.ClassifierPlotHandler`
 
 Handles all the plots related of the chosen classifier on 3D.
@@ -130,7 +130,7 @@ Plotting the classifier prediction and saving the figure.
 :param figure_layout: figure layout - plot.ly Layout object.
 
 
-#### class palantiri.ClassificationPlotHandlers.TwoDimensionalClassifierPlotHandler(dataset, trained_classifier, \*\*params)
+### class palantiri.ClassificationPlotHandlers.TwoDimensionalClassifierPlotHandler(dataset, trained_classifier, \*\*params)
 Bases: `palantiri.ClassificationPlotHandlers.ClassifierPlotHandler`
 
 Handles all the plots related of the chosen classifier on 2D.
@@ -141,10 +141,12 @@ Building the classifier prediction figure.
 :param figure_layout: figure layout - plot.ly Layout object.
 :param step_size: Plot resolution.
 
+* * *
+
 ## palantiri.ClusteringPlotHandlers module
 
 
-#### class palantiri.ClusteringPlotHandlers.ClusteringPlotHandler(dataset, trained_cluster, \*\*params)
+### class palantiri.ClusteringPlotHandlers.ClusteringPlotHandler(dataset, trained_cluster, \*\*params)
 Bases: `palantiri.BasePlotHandlers.PlotHandler`
 
 Handles all the plots related of the chosen cluster.
@@ -160,7 +162,7 @@ The dataset
 :return: The dataset as a dictionary
 
 
-#### classmethod from_pandas_dataframe(dataframe, trained_cluster, \*\*params)
+### classmethod from_pandas_dataframe(dataframe, trained_cluster, \*\*params)
 Constructing the handler from a pandas dataframe.
 :param dataframe: the dataframe form which the handler is constructed.
 :param trained_cluster: sklearn cluster (trained / fitted).
@@ -183,7 +185,7 @@ The trained cluster.
 :return: The cluster in the sklearn format.
 
 
-#### class palantiri.ClusteringPlotHandlers.ThreeDimensionalClusteringPlotHandler(dataset, trained_cluster, \*\*params)
+### class palantiri.ClusteringPlotHandlers.ThreeDimensionalClusteringPlotHandler(dataset, trained_cluster, \*\*params)
 Bases: `palantiri.ClusteringPlotHandlers.ClusteringPlotHandler`
 
 Handles all the plots related of the chosen cluster on 3D.
@@ -194,7 +196,7 @@ Plotting the cluster prediction and saving the figure.
 :param figure_layout: figure layout - plot.ly Layout object.
 
 
-#### class palantiri.ClusteringPlotHandlers.TwoDimensionalClusteringPlotHandler(dataset, trained_cluster, \*\*params)
+### class palantiri.ClusteringPlotHandlers.TwoDimensionalClusteringPlotHandler(dataset, trained_cluster, \*\*params)
 Bases: `palantiri.ClusteringPlotHandlers.ClusteringPlotHandler`
 
 Handles all the plots related of the chosen cluster on 2D.
@@ -205,16 +207,18 @@ Building the classifier prediction figure.
 :param figure_layout: figure layout - plot.ly Layout object.
 :param step_size: Plot resolution.
 
+* * *
+
 ## palantiri.GraphPlotHandlers module
 
 
-#### class palantiri.GraphPlotHandlers.DecisionTreePlotHandler(decision_tree, feature_names, \*\*params)
+### class palantiri.GraphPlotHandlers.DecisionTreePlotHandler(decision_tree, feature_names, \*\*params)
 Bases: `palantiri.GraphPlotHandlers.GraphPlotHandler`
 
 The decision tree plot handler - handles all the decision tree related plots.
 
 
-#### class palantiri.GraphPlotHandlers.GraphPlotHandler(graph, node_data_key=None, \*\*params)
+### class palantiri.GraphPlotHandlers.GraphPlotHandler(graph, node_data_key=None, \*\*params)
 Bases: `palantiri.BasePlotHandlers.PlotHandler`
 
 The graph plot handler - handles all the graph related plots.
@@ -236,7 +240,7 @@ Plotting the graph figure.
 :param figure_layout: a plot.ly layout object.
 
 
-#### class palantiri.GraphPlotHandlers.RandomForestPlotHandler(random_forest, feature_names, \*\*params)
+### class palantiri.GraphPlotHandlers.RandomForestPlotHandler(random_forest, feature_names, \*\*params)
 Bases: `palantiri.GraphPlotHandlers.GraphPlotHandler`
 
 The random forest plot handler - handles all the random forest related plots.
@@ -247,10 +251,12 @@ Building the graph plot figure.
 :param figure_layout: a plot.ly layout object.
 :param pos: place holder
 
+* * *
+
 ## palantiri.RegressionPlotHandlers module
 
 
-#### class palantiri.RegressionPlotHandlers.OneDimensionalRegressionPlotHandler(dataset, trained_regressor, \*\*params)
+### class palantiri.RegressionPlotHandlers.OneDimensionalRegressionPlotHandler(dataset, trained_regressor, \*\*params)
 Bases: `palantiri.RegressionPlotHandlers.RegressionPlotHandler`
 
 Handles all the plots related of the chosen 1D regression.
@@ -265,7 +271,7 @@ list of 2 numbers - indicating the start and end of the range
 if none will take the minimum and maximum of the data set.
 
 
-#### class palantiri.RegressionPlotHandlers.RegressionPlotHandler(dataset, trained_regressor, \*\*params)
+### class palantiri.RegressionPlotHandlers.RegressionPlotHandler(dataset, trained_regressor, \*\*params)
 Bases: `palantiri.BasePlotHandlers.PlotHandler`
 
 Handles all the plots related of the chosen regressor.
@@ -281,7 +287,7 @@ The dataset
 :return: The dataset as a dictionary
 
 
-#### classmethod from_pandas_dataframe(dataframe, trained_regressor, \*\*params)
+### classmethod from_pandas_dataframe(dataframe, trained_regressor, \*\*params)
 Constructing the handler from a pandas dataframe.
 :param dataframe: the dataframe form which the handler is constructed.
 :param trained_regressor: sklearn regressor (trained / fitted).
@@ -304,7 +310,7 @@ The trained regressor.
 :return: The regressor in sklearn format.
 
 
-#### class palantiri.RegressionPlotHandlers.TwoDimensionalRegressionPlotHandler(dataset, trained_regressor, \*\*params)
+### class palantiri.RegressionPlotHandlers.TwoDimensionalRegressionPlotHandler(dataset, trained_regressor, \*\*params)
 Bases: `palantiri.RegressionPlotHandlers.RegressionPlotHandler`
 
 Handles all the plots related of the chosen regressor on 2D.
@@ -319,10 +325,12 @@ list of 2 numbers - indicating the start and end of the range
 if none will take the minimum and maximum of the data set.
 :param y_range: similar to x_range for the y-axis.
 
+* * *
+
 ## palantiri.RegretPlotHandler module
 
 
-#### class palantiri.RegretPlotHandler.RegretPlotHandler(cumulative_regret_data, \*\*params)
+### class palantiri.RegretPlotHandler.RegretPlotHandler(cumulative_regret_data, \*\*params)
 Bases: `palantiri.BasePlotHandlers.PlotHandler`
 
 The regret plot handler - handles all the regret related plots.
