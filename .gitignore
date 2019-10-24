@@ -2,8 +2,12 @@
 _gh_pages
 _site*
 .ruby-version
-
+.sass-cache/
+_site/
+/notebooks/__pycache__
+*/.ipynb_checkpoints/*.ipynb
 # Numerous always-ignore extensions
+*.pyc
 *.diff
 *.err
 *.orig
