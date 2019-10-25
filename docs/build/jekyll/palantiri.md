@@ -1,5 +1,5 @@
 ---
-date: '2019-10-23T18:57:18.979Z'
+date: '2019-10-25T11:23:30.277Z'
 docname: palantiri
 images: {}
 path: /palantiri
@@ -7,6 +7,8 @@ title: palantiri package
 ---
 
 # palantiri package
+
+## Module contents
 
 ## Submodules
 
@@ -20,10 +22,15 @@ Base class for the plot handlers
 
 
 #### static build_hexbin_figure(x, y)
+Building a hexabin plotly graphical object figure.
+:param x: array containing all the x coordinates of the selected data points.
+:param y: array containing all the y coordinates of the selected data points.
+:return: hexabing plotly graphical object
+
 
 #### static save_figure(figure, file_name)
 Saving the figure as an html file.
-:param figure: the figure to be saved.
+:param figure: plot.ly figure graphical object to be saved.
 :param file_name: The html file name
 
 ## palantiri.ClassificationPlotHandlers module
@@ -68,6 +75,7 @@ The dataset
 #### classmethod from_pandas_dataframe(dataframe, trained_classifier, \*\*params)
 Constructing the handler from a pandas dataframe.
 :param dataframe: the dataframe form which the handler is constructed.
+The ‘target’ column  should be included in the dataframe.
 :param trained_classifier: sklearn classifier (trained / fitted).
 :param params: other params.
 :return: returns the classifier plot handler object.
@@ -335,5 +343,3 @@ Building the regret plot figure.
 #### plot_regret(figure_layout=None)
 Plotting the graph figure.
 :param figure_layout: a plot.ly layout object.
-
-## Module contents

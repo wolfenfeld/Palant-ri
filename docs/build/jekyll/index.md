@@ -1,5 +1,5 @@
 ---
-date: '2019-10-23T18:59:25.711Z'
+date: '2019-10-25T11:23:30.277Z'
 docname: index
 images: {}
 path: /
