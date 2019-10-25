@@ -292,3 +292,34 @@ class RandomForestPlotHandler(GraphPlotHandler):
             text=['' for _ in range(len(structure.values()))])]
 
         self.graph_figure = go.Figure(data=data, layout=figure_layout)
+
+    def plot_graph(self, figure_layout=None):
+        """
+        Plotting the random forest graph figure.
+        :param figure_layout: a plot.ly layout object.
+        """
+
+        if not figure_layout:
+            figure_layout = go.Layout(title=dict(text='Random Forest Graph Plot', x=0.5),
+                                      xaxis=dict(
+                                          autorange=True,
+                                          showgrid=False,
+                                          zeroline=False,
+                                          showline=False,
+                                          ticks='',
+                                          showticklabels=False),
+                                      yaxis=dict(
+                                          autorange=True,
+                                          showgrid=False,
+                                          zeroline=False,
+                                          showline=False,
+                                          ticks='',
+                                          showticklabels=False))
+
+        if not self.graph_figure:
+            self.build_graph_figure(figure_layout=figure_layout)
+
+        else:
+            self.graph_figure.layout = figure_layout
+
+        iplot(self.graph_figure)
