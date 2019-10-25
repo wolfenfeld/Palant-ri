@@ -10,7 +10,6 @@
 # Packages
 *.egg
 *.egg-info
-build
 eggs
 parts
 bin
@@ -34,7 +33,7 @@ output/*.html
 output/*/index.html
 
 # Sphinx
-docs/build
+doctrees
 .sass-cache
 _site
 
