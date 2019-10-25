@@ -3,8 +3,7 @@
 # You can change it to link to a different site, or delete it to remove the link.
 # To create links to social media sites, check out `_data/authors.yml`!
 title: Documentation
-layout: list
-menu: true
+layout: base
 order: 2
 ---
 
