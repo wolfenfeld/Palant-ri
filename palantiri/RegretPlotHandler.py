@@ -69,7 +69,7 @@ class RegretPlotHandler(PlotHandler):
         """
 
         if not figure_layout:
-            figure_layout = go.Layout(title='Regret Plot',
+            figure_layout = go.Layout(title=dict(text='Regret Plot', x=0.5),
                                       xaxis=dict(
                                           autorange=True,
                                           showgrid=False,

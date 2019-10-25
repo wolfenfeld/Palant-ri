@@ -88,7 +88,7 @@ class ClusteringPlotHandler(PlotHandler):
         """
 
         if not figure_layout:
-            figure_layout = go.Layout(title='Cluster Prediction')
+            figure_layout = go.Layout(title=dict(text='Cluster Prediction', x=0.5))
 
         if not self.prediction_figure:
             self.build_prediction_figure(figure_layout=figure_layout)
