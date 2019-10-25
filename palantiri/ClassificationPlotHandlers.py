@@ -227,7 +227,7 @@ class ClassifierPlotHandler(PlotHandler):
         """
 
         if not figure_layout:
-            figure_layout = go.Layout(title='ROC Curve',
+            figure_layout = go.Layout(title=dict(text='ROC Curve', x=0.5),
                                       xaxis=dict(title='False Positive Rate'),
                                       yaxis=dict(title='True Positive Rate'))
 
@@ -253,7 +253,7 @@ class ClassifierPlotHandler(PlotHandler):
         """
 
         if not figure_layout:
-            figure_layout = go.Layout(title='Classifier Prediction')
+            figure_layout = go.Layout(title=dict(text='Classifier Prediction', x=0.5))
 
         if not self.prediction_figure:
             self.build_prediction_figure(figure_layout=figure_layout)

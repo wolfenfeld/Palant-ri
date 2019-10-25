@@ -87,7 +87,7 @@ class RegressionPlotHandler(PlotHandler):
         """
 
         if not figure_layout:
-            figure_layout = go.Layout(title='Regression Plot')
+            figure_layout = go.Layout(title=dict(text='Regression Plot', x=0.5))
 
         if not self.prediction_figure:
             self.build_prediction_figure(figure_layout)
