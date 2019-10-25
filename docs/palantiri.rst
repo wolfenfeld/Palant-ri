@@ -1,6 +1,15 @@
 palantiri package
 =================
 
+Module contents
+---------------
+
+.. automodule:: palantiri
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Submodules
 ----------
 
@@ -48,15 +57,6 @@ palantiri.RegretPlotHandler module
 ----------------------------------
 
 .. automodule:: palantiri.RegretPlotHandler
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: palantiri
     :members:
     :undoc-members:
     :show-inheritance:

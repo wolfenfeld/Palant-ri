@@ -56,6 +56,7 @@ class ClassifierPlotHandler(PlotHandler):
         """
         Constructing the handler from a pandas dataframe.
         :param dataframe: the dataframe form which the handler is constructed.
+        The 'target' column  should be included in the dataframe.
         :param trained_classifier: sklearn classifier (trained / fitted).
         :param params: other params.
         :return: returns the classifier plot handler object.

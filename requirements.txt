@@ -1,8 +1,8 @@
 matplotlib
-igraph
 pydotplus
 colorlover
 networkx
 plotly
 scikit-learn
 numpy
+sphinx-jekyll-builder

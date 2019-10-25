@@ -20,7 +20,7 @@ class PlotHandler(object):
     def save_figure(figure, file_name):
         """
         Saving the figure as an html file.
-        :param figure: the figure to be saved.
+        :param figure: plot.ly figure graphical object to be saved.
         :param file_name: The html file name
         """
 
@@ -30,6 +30,12 @@ class PlotHandler(object):
 
     @staticmethod
     def build_hexbin_figure(x, y):
+        """
+        Building a hexabin plotly graphical object figure.
+        :param x: array containing all the x coordinates of the selected data points.
+        :param y: array containing all the y coordinates of the selected data points.
+        :return: hexabing plotly graphical object
+        """
 
         def get_hexbin_attributes(hexbin):
             paths = hexbin.get_paths()
