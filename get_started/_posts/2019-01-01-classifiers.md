@@ -4,7 +4,7 @@ title: Classifier Visualisations
 categories: [get_started] 
 ---
 # Classifiers
-In this tutorial we will show how to use Palantiri with Scikit-Learn classifiers.
+In this tutorial we will show how to use Palantíri with Scikit-Learn classifiers.
 
 We will start with importing the relevant classifiers and data:
 ```python
@@ -86,4 +86,4 @@ plot_handler.plot_confusion_matrix()
 ```
 {% include scripts/plots/3d-prediction-confusion-matrix.html %}
 
-To conclude - we showed how simple it is to take a trained classier and data points and plot them with the Palantiri package.
+To conclude - we showed how simple it is to take a trained classier and data points and plot them with the Palantíri package.
