@@ -69,6 +69,9 @@ from palantiri.ClassificationPlotHandlers import ThreeDimensionalClassifierPlotH
 
 plot_handler = ThreeDimensionalClassifierPlotHandler(breast_cancer, breast_cancer_clf)
 ```
+Not like in the *Two Dimensional Plot Handler*, the data points here will be classified with the trained model.
+
+
 Once everything is set up we can start plotting:
                       
 ```python
