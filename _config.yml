@@ -116,7 +116,7 @@ font_heading:          Roboto Slab, Helvetica, Arial, sans-serif
       seo:
         type:          WebPage
   - scope:
-      type:            fea  tured_categories
+      type:            featured_categories
     values:
       seo:
         type:          WebPage
