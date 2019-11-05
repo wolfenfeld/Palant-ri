@@ -1,7 +1,6 @@
 ---
 order: 10
 menu: true
-image: /assets/img/blog/hydejack-8.png
 ---
 
 # About
