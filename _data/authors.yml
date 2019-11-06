@@ -1,29 +1,34 @@
 # The primary author of this blog.
-# Must be the same as `author` in `_config1.yml`.
-# Change `author1` to your shortname.
+# Must be the same as `author` in `_config.yml`.
+# You can change `author1` to your shortname.
 author1:
+  # Replace <...> with your own (remove the < >)
   name:              Amit Wolfenfeld
   email:             wolfenfeld@gmail.com
 
   # Used at the bottom of each page and at the top of the `about` layout
   # Markdown enabled, can use multiple paragraphs (enabled by `|`)
-  about:
-    Data scientist
+  about:             |
+    A father of two,
+    a husband of one,
+    senior data scientist at Medisafe,
+    hates 'for loops',
+    loves dataframes.
 
-  # This photo will be used in the about section
+  # This photo will be used in the about section.
   picture:
-    path:            assets/img/authors/wolfenfeld.jpg
+    path:            /assets/img/avatar128.jpg
     # srcset is optional, but can be used to provide higher res versions for retina displays
     srcset:
-      1x:            assets/img/authors/wolfenfeld.jpg
-      2x:            assets/img/authors/wolfenfeld.jpg
+      1x:            /assets/img/avatar128.jpg
+      2x:            /assets/img/avatar256.jpg
 
-  # Social media icons in sidebar
-  # Comment/uncommet to show/hide
-  # Rearrange to change the order in which they appear
+  # Social media icons in sidebar.
+  # Comment/uncommet to show/hide. Rearrange to change the order in which they appear.
   social:
     twitter:         wolfenfeld
-    github:          wolfenfeld/Palantiri
+    github:          wolfenfeld
+    # download:        <url>
     # email:           <mail@domain.tld>
     # rss:             https://<url>/feed.xml
     # facebook:        <username>
@@ -53,15 +58,14 @@ author1:
     # npm:             <username>
     # hackernews:      <username>
     # trello:          <firstnamelastname>
-    # linkedin:        <firstname-lastname-string>
+    linkedin:        amit-wolfenfeld-16b6986
     # xing:            <firstname_lastname_counter>
     # blogger:         <number>
     # delicious:       <username>
     # stumbleupon:     <username>
     # paypal:          <username>
-    # download:        <url>
 
-# Another author (optional)
+# Another author
 author2:
   name:              <firtname> <lastname>
   email:             <mail@domain.tld>
@@ -74,6 +78,9 @@ author2:
   picture:           https://placehold.it/128x128
   twitter:           <username>
   github:            <username>
+
+  # Every author can have his/her own accent color and image.
+  # This will change the appearance of all pages of this author.
   accent_color:      '#268bd2'
   accent_image:
     background:      '#202020'

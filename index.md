@@ -1,12 +1,8 @@
 ---
-# Featured tags need to have the `list` layout.
-layout: list
+layout: page
 
 # The title of the tag's page.
-title: Getting Started
-
-# The name of the tag, used in a post's front matter (e.g. tags: [<slug>]).
-slug: get_started
+title: Palantíri
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
@@ -15,7 +11,7 @@ description: >
   Each post is dedicated to the a different type of visualisation need.
 
 # Setting `menu` will generate an entry in the sidebar for this tag.
-menu: true
+menu: False
 order: 1
+cover: true
 ---
-After installing the we would like to get started.
