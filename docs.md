@@ -5,7 +5,7 @@
 title: Documentation
 layout: post
 order: 2
-menu: false
+menu: true
 ---
 
 
