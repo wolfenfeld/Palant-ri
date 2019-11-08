@@ -13,5 +13,4 @@ description: >
 # Setting `menu` will generate an entry in the sidebar for this tag.
 menu: False
 order: 1
-cover: true
 ---
