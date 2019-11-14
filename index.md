@@ -11,6 +11,8 @@ description: >
   Each post is dedicated to the a different type of visualisation need.
 
 # Setting `menu` will generate an entry in the sidebar for this tag.
-menu: False
+menu: false
+cover: true
 order: 1
 ---
+yeah
