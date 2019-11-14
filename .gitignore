@@ -1,9 +1,9 @@
 # Ignore docs files
 _gh_pages
-_site*
+#_site*
 .ruby-version
 .sass-cache/
-_site/
+#_site/
 /notebooks/__pycache__
 */.ipynb_checkpoints/*.ipynb
 # Numerous always-ignore extensions
