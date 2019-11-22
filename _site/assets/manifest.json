@@ -10,32 +10,32 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "/palantiri/assets/img/icons/favicon@0,25x.png",
+      "src": "/palantiri/assets/icons/favicon@0,25x.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/palantiri/assets/img/icons/favicon@0,5x.png",
+      "src": "/palantiri/assets/icons/favicon@0,5x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/palantiri/assets/img/icons/favicon@0,75x.png",
+      "src": "/palantiri/assets/icons/favicon@0,75x.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "/palantiri/assets/img/icons/favicon@1x.png",
+      "src": "/palantiri/assets/icons/favicon@1x.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/palantiri/assets/img/icons/favicon@2x.png",
+      "src": "/palantiri/assets/icons/favicon@2x.png",
       "type": "image/png",
       "sizes": "384x384"
     },
     {
-      "src": "/palantiri/assets/img/icons/favicon@3x.png",
+      "src": "/palantiri/assets/icons/favicon@3x.png",
       "type": "image/png",
       "sizes": "576x576"
     }

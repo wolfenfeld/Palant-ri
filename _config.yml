@@ -4,7 +4,7 @@
 # IMPORTANT: Set the URL of your site.
 # Set to https://<username>.github.io when hosting on GitHub Pages
 # (unless you are using a custom domain).
-url: https://wolfenfeld.github.io/
+url:                   https://wolfenfeld.github.io/
 
 # IMPORTANT: Set The "base URL" of your site.
 # When your site sits in a subdirectory, set to /<name of directory>
@@ -50,7 +50,7 @@ author:
 # This text will appear in a `<small>` tag in the footer of every page.
 copyright:             >
   © 2018. All rights reserved.
-#  Open `_config.yml` to edit this text.
+  Open `_config.yml` to edit this text.
 
 # Add links to the footer.
 # Typically you'll want to link to your impress, cookies or privacy policy, etc.
@@ -92,26 +92,39 @@ font:                  Noto Sans, Helvetica, Arial, sans-serif
 # To change font-weight, see _sass/variables.scss
 font_heading:          Roboto Slab, Helvetica, Arial, sans-serif
 
+defaults:
+  - scope:
+      path:            get_started
+    values:
+      accent_image:          /assets/img/background.jpg
+      accent_color:          rgb(79,177,186)
 
-#defaults:
-#  # `jekyll-seo-tag` will mark collection outputs as `BlogPosting`,
-#  # but we want them to be `WebPage`s:
 #  - scope:
-#      type:            projects
+#      path:            hyde
 #    values:
-#      seo:
-#        type:          WebPage
-#  - scope:
-#      type:            featured_categories
-#    values:
-#      seo:
-#        type:          WebPage
-#  - scope:
-#      type:            featured_tags
-#    values:
-#      seo:
-#        type:          WebPage
-#
+#      accent_color:    rgb(38,139,210)
+#      accent_image:
+#        background:    rgb(32,32,32)
+#        overlay:       false
+
+  # `jekyll-seo-tag` will mark collection outputs as `BlogPosting`,
+  # but we want them to be `WebPage`s:
+  - scope:
+      type:            projects
+    values:
+      seo:
+        type:          WebPage
+  - scope:
+      type:            featured_categories
+    values:
+      seo:
+        type:          WebPage
+  - scope:
+      type:            featured_tags
+    values:
+      seo:
+        type:          WebPage
+
 
 # 3rd Party Integrations
 # ----------------------------------------------------------------------------------------
