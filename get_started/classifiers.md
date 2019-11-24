@@ -1,10 +1,14 @@
-
 ---
 layout: page
+
 title: Classifier Visualisations
+
 path: /get_started/classifiers
+
 categories: [get_started] 
 ---
+
+
 # Classifiers
 In this tutorial we will show how to use Palantíri with Scikit-Learn classifiers.
 
