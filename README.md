@@ -1,5 +1,5 @@
-# Palantíri
-
+Palantíri
+--------
 In Quenya (an Elvish tongue), Palantíri means "far-seeing".
 
 Palantíri is an "Out of the Box" visualization tool box comprised of multiple modules.
@@ -10,7 +10,7 @@ Whether you wish to visualize your module in a *Jupyter Notebook* or a web clien
 
 Overview
 --------
-version number: 0.1.0
+version number: 0.1.1
 
 Currently visualizing - Sklearn classifiers, clustering modules, regression models, network-x graphs, regret plots.
 
