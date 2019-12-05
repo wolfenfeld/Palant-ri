@@ -9,7 +9,7 @@ categories: [get_started]
 ---
 
 
-# Classifiers
+# Classification Models
 In this tutorial we will show how to use Palantíri with Scikit-Learn classifiers.
 
 We will start with importing the relevant classifiers and data:
@@ -27,9 +27,11 @@ iris_clf = svm.SVC(kernel='rbf',probability=True,gamma='auto')
 iris_clf.fit(iris.data[:,:2], iris.target);
 ```
 
+## Two Dimensional Classifiers
+
 We will start with a *Two Dimensional Plot Handler* for the classifier.
 
-The plot handler is initialized with the trained classifier and data points that will be displayed.
+The plot handler is initialized with the trained classifier and data points that will be displayed (the data points can be different from what the classifier used for training).
 
 *Important note - for a two dimensional plot handler that classifier must be trained on two features.*
 ```python
@@ -54,6 +56,8 @@ plot_handler.plot_confusion_matrix()
 
 {% include scripts/plots/2d-prediction-confusion-matrix.html %}
 
+## Three Dimensional Classifiers
+
 In the previous example we have used a classifier that we trained on two features.
 
 We will now show how to use the *Three Dimensional Plot Handler*
@@ -75,7 +79,7 @@ from palantiri.ClassificationPlotHandlers import ThreeDimensionalClassifierPlotH
 
 plot_handler = ThreeDimensionalClassifierPlotHandler(breast_cancer, breast_cancer_clf)
 ```
-Not like in the *Two Dimensional Plot Handler*, the data points here will be classified with the trained model.
+Unlike in the *Two Dimensional Plot Handler*, the data points here will be classified with the trained model.
 
 
 Once everything is set up we can start plotting:
