@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '0.1.1'
+__version__ = '0.2.0'
 
 here = path.abspath(path.dirname(__file__))
 
@@ -22,13 +22,14 @@ setup(
     version=__version__,
     description='Out of the box visualisation tools',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/wolfenfeld/palantiri',
     download_url='https://github.com/wolfenfeld/palantiri/tarball/' + __version__,
     license='BSD',
     classifiers=[
-      'Development Status :: 3 - Alpha',
-      'Intended Audience :: Developers',
-      'Programming Language :: Python :: 3',
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 3',
     ],
     keywords='',
     packages=find_packages(exclude=['docs', 'tests*']),
