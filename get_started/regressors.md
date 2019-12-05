@@ -5,15 +5,17 @@ path: /get_started/regressors
 
 categories: [get_started] 
 ---
-# Regressors
 In this tutorial we will show how to use Palantíri with Scikit-Learn regressors.
+
+# One Dimensional Regression Model
+
+We will start with a *One Dimensional Regression Plot Handler*.
 
 We first import a regressor and some data.
 ```python
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import load_boston
 ```
-We will start with a *One Dimensional Regression Plot Handler*.
 We will now load the data:
 ```python
 dataset = load_boston()
@@ -36,6 +38,9 @@ Once everything is ready we can start with the visualizations:
 plot_handler.plot_prediction()
 ```
 {% include scripts/plots/regression-plot.html %}
+
+# Two Dimensional Regression Model
+
 Next we will use the *Two Dimensional Plot Handler*:
 
 We will load the data:

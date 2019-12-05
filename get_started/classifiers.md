@@ -8,8 +8,6 @@ path: /get_started/classifiers
 categories: [get_started] 
 ---
 
-
-# Classification Models
 In this tutorial we will show how to use Palantíri with Scikit-Learn classifiers.
 
 We will start with importing the relevant classifiers and data:

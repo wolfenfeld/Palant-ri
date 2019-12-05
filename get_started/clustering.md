@@ -4,7 +4,6 @@ title: Clustering Visualisations
 path: /get_started/clustering
 categories: [get_started] 
 ---
-# Clustering Models
 In this tutorial we will show how to visualize a trained clustering model (Scikit Learn) and display the data points.
 
 First we will import the relevant packages:
@@ -12,6 +11,8 @@ First we will import the relevant packages:
 from sklearn.cluster import KMeans,AffinityPropagation
 from sklearn.datasets import load_iris, load_breast_cancer
 ```
+
+## Two Dimensional Clustering Modules
 
 We will start with a *Two Dimensional Plot Handler*.
 
@@ -33,6 +34,8 @@ plot_handler.plot_prediction()
 ```
 
 {% include scripts/plots/2d-clutering-plot.html %}
+
+## Three Dimensional Clustering Modules
 
 We will now show how to use the *Three Dimensional Plot Handler*.
 

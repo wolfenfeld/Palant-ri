@@ -6,8 +6,6 @@ path: /get_started/regret
 categories: [get_started] 
 ---
 
-# Regret
-
 When dealing with *Reinforcement Learning* algorithms, one way to measure performance of the algorithm is with *Mean Accumulated Regret*.
 
 The *Mean Accumulated Regret* is defined as follows:
@@ -28,7 +26,7 @@ data = {'Algorithm 1':np.array([np.log(np.linspace(1,1000,1000))+ 5*np.random.ra
 
 In this example we generate data for two different algorithms. 
 
-The data for each algorithm, the accumulated regret for round *t* in run *n*, is a T by N numpy array, where *T* (1000 in this case)  is the number of rounds in each "run" and *N* is the total number of runs (30 in our case).
+The data for each algorithm is the accumulated regret for round *t* in run *n*, is a *T* by *N* numpy array, where *T* (1000 in this case)  is the number of rounds in each "run" and *N* is the total number of runs (30 in our case).
 
 We will use the *RegretPlotHandler* to visualize the *Mean Accumulated Regret*:
 
@@ -42,3 +40,5 @@ plot_handler.plot_regret()
 ```
 
 {% include scripts/plots/regret_plot.html %}
+
+The inner bold line is the mean accumulated regret, and the filled bound around the mean is a single standard deviation. 

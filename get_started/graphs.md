@@ -7,7 +7,12 @@ path: /get_started/graphs
 
 categories: [get_started] 
 ---
+
+
 In this tutorial we will show how to use the Palantíri's out of the box visualizations tools on *network-x* graphs and on *sklearn* decision trees and random forests.
+
+
+## Network-x Graphs
 
 We will start with a *network-x* graph.
 
@@ -31,6 +36,8 @@ plot_handler = GraphPlotHandler(karate_club_graph,node_data_key='club')
 plot_handler.plot_graph()
 ```
 {% include scripts/plots/karate_graph.html %}
+
+## Decision Tree Graphs
 
 Another capability of Palantíri is to plot the structure of a decision tree.
 
@@ -65,6 +72,7 @@ plot_handler.plot_graph()
 
 {% include scripts/plots/decision_tree_graph.html %}
 
+## Random Forest Graphs
 
 In the last example we will use the same wine data set and plot *sklearn*'s trained *RandomForestClassifier*. 
 
