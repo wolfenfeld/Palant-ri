@@ -22,3 +22,5 @@ order: 1
 [Clustering](/palantiri/get_started/clustering)
 
 [Graphs](/palantiri/get_started/graphs)
+
+[Regret](/palantiri/get_started/regret)
