@@ -1,5 +1,5 @@
 ---
-date: '2019-11-20T19:50:34.239Z'
+date: '2019-12-05T12:44:50.088Z'
 docname: modules
 images: {}
 path: /modules
@@ -12,7 +12,7 @@ title: palantiri
 
   * Submodules
 
-    * [palantiri.BasePlotHandlers](palantiri.BasePlotHandlers) module
+    * palantiri.BasePlotHandlers module
 
     * palantiri.ClassificationPlotHandlers module
 
