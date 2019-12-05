@@ -71,19 +71,21 @@ class RegretPlotHandler(PlotHandler):
         if not figure_layout:
             figure_layout = go.Layout(title=dict(text='Regret Plot', x=0.5),
                                       xaxis=dict(
+                                          title='Round',
                                           autorange=True,
                                           showgrid=False,
                                           zeroline=False,
                                           showline=False,
                                           ticks='',
-                                          showticklabels=False),
+                                          showticklabels=True),
                                       yaxis=dict(
+                                          title='Mean Accumulated Regret',
                                           autorange=True,
                                           showgrid=False,
                                           zeroline=False,
                                           showline=False,
                                           ticks='',
-                                          showticklabels=False))
+                                          showticklabels=True))
 
         if not self.regret_figure:
             self.build_graph_figure(figure_layout=figure_layout)
