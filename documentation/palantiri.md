@@ -7,6 +7,7 @@ title: Documentation
 menu: true
 order: 2 
 layout: page
+description: In this section you will find the documentation of all the modules in the Palantíri package.
 ---
 
 ## Modules

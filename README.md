@@ -8,9 +8,9 @@ In Quenya (an Elvish tangue), Palantíri means "far-seeing".
 
 Palantíri is an "Out of the Box" visualization tool box comprised of multiple modules.
  
- Each one of the modules handles the visualization of a different model (classifier, clustering model and so on).
+Each one of the modules handles the visualization of a different model (classifier, clustering model and so on).
  
- Whether you wish to visualize your module in a *Jupyter Notebook* or a web client, Palantíri is the tool for you.  
+Whether you wish to visualize your module in a *Jupyter Notebook* or a web client, Palantíri is the tool for you.  
 
 Overview
 --------
