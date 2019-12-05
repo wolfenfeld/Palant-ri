@@ -1,10 +1,6 @@
 # Palantíri
-<hr>
-<p align="center"> 
-<img src="assets/img/palantir.png">
-</p>
 
-In Quenya (an Elvish tangue), Palantíri means "far-seeing".
+In Quenya (an Elvish tongue), Palantíri means "far-seeing".
 
 Palantíri is an "Out of the Box" visualization tool box comprised of multiple modules.
  
@@ -18,7 +14,7 @@ version number: 0.1.0
 
 Currently visualizing - Sklearn classifiers, clustering modules, regression models, network-x graphs, regret plots.
 
-For more information, please follow the [*Getting Started*](https://wolfenfeld.github.io/palantiri/get_started/get_started//get_started) guide
+For more information, please follow the [*Getting Started*](https://wolfenfeld.github.io/palantiri/get_started/get_started/) guide
 
 Installation / Usage
 --------------------
